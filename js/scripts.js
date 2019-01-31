@@ -3,8 +3,9 @@
 function BankAccount(name, balance, deposit, withdrawal) {
   this.name = name;
   this.balance = balance;
-  this.deposit = deposit; //** I don't think these really need to be properties of a bank account object
-  this.withdrawal = withdrawal; //** I don't think these really need to be properties of a bank account object
+  // this.deposit = deposit; //** I don't think these really need to be properties of a bank account object
+  // this.withdrawal = withdrawal; //** I don't think these really need to be properties of a bank account object
+  // ** when I comment these out, I get undefined function for the deposit prototype when I console log it, which is better than eror: newBankAccount.deposit is not a function when these were part of the constructor
 }
 
 BankAccount.prototype.deposit = function(balance, deposit) {
@@ -37,7 +38,8 @@ $(document).ready(function() {
     var withdrawalAmount = parseFloat($("#withdrawalAmount").val());
     var currentBalance = parseFloat($(".accountBalance").val()); //** I don't think this would do anything
     // var currentBalance = newBankAccount.this.balance; //** Cannot read property of balance - how do I get this.balance? What good is it as a property of the object if I can't get it?
-    var updateBalance = newBankAccount.deposit(currentBalance, depositAmount); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
+    balance = currentBalance; //** this did not help when I used it to replace 'currentBalance' as the argument in the line below
+  var updateBalance = newBankAccount.deposit(balance, depositAmount); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
     console.log(updateBalance);
   });
 });
