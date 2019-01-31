@@ -26,10 +26,11 @@ $(document).ready(function() {
     // debugger;
     var name = $("#name").val();
     var initialDeposit = parseFloat($("#initialDeposit").val());
-    var newBankAccount = new BankAccount(name,initialDeposit, 0, 0);
+    var newBankAccount = new BankAccount(name,initialDeposit);
     // var newBalance = newBankAccount.balance;
     console.log(newBankAccount);
     $(".account-balance").text(initialDeposit);
+
   });
 
   $("#manage-account").submit(function(event){
@@ -40,6 +41,7 @@ $(document).ready(function() {
     // var currentBalance = newBankAccount.this.balance; //** Cannot read property of balance - how do I get this.balance? What good is it as a property of the object if I can't get it?
     // balance = currentBalance; //** this did not help when I used it to replace 'currentBalance' as the argument in the line below
   var updateBalance = newBankAccount.deposit(currentBalance, depositAmount); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
+  console.log(currentBalance);
     console.log(updateBalance);
   });
 });
