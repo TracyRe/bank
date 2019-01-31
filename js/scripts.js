@@ -1,6 +1,6 @@
 // ** BUSINESS LOGIC
 
-function BankAccount(name, balance, deposit, withdrawal) {
+function BankAccount(name, balance) {
   this.name = name;
   this.balance = balance;
   // this.deposit = deposit; //** I don't think these really need to be properties of a bank account object
@@ -36,10 +36,10 @@ $(document).ready(function() {
     event.preventDefault();
     var depositAmount = parseFloat($("#depositAmount").val());
     var withdrawalAmount = parseFloat($("#withdrawalAmount").val());
-    var currentBalance = parseFloat($(".accountBalance").val()); //** I don't think this would do anything
+    var currentBalance = parseFloat($(".account-balance").val()); //** I don't think this would do anything
     // var currentBalance = newBankAccount.this.balance; //** Cannot read property of balance - how do I get this.balance? What good is it as a property of the object if I can't get it?
-    balance = currentBalance; //** this did not help when I used it to replace 'currentBalance' as the argument in the line below
-  var updateBalance = newBankAccount.deposit(balance, depositAmount); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
+    // balance = currentBalance; //** this did not help when I used it to replace 'currentBalance' as the argument in the line below
+  var updateBalance = newBankAccount.deposit(currentBalance, depositAmount); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
     console.log(updateBalance);
   });
 });
