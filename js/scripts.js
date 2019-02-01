@@ -5,15 +5,17 @@ function BankAccount() {
   this.balance = 0;
   // this.deposit = deposit; //** I don't think these really need to be properties of a bank account object
   // this.withdrawal = withdrawal; //** I don't think these really need to be properties of a bank account object
-  // ** when I comment these out, I get undefined function for the deposit prototype when I console log it, which is better than eror: newBankAccount.deposit is not a function when these were part of the constructor
+  // ** when I comment these out, I get undefined function for the deposit prototype when I console log it, which is better than error: newBankAccount.deposit is not a function when these were part of the constructor
 }
 
 BankAccount.prototype.deposit = function(balance, deposit) {
-  return this.balance = this.balance + this.deposit;
+this.balance += deposit;
+return this.balance;
 }
 
 BankAccount.prototype.withdrawal = function(balance, withdrawal) {
-  return this.balance = this.balance - this.withdrawal;
+  this.balance -= withdrawal;
+  return this.balance;
 }
 
 
@@ -31,19 +33,44 @@ $(document).ready(function() {
     newBankAccount.name = name;
     newBankAccount.balance = initialDeposit;
     console.log(newBankAccount);
+    console.log(newBankAccount.balance);
     $(".account-balance").text(initialDeposit);
 
   });
 
-  $("#manage-account").submit(function(event){
+  $("#deposit-funds").submit(function(event){
     event.preventDefault();
-    var depositAmount = parseFloat($("#depositAmount").val());
-    var withdrawalAmount = parseFloat($("#withdrawalAmount").val());
-    var currentBalance = parseFloat($(".account-balance").val()); //** I don't think this would do anything
-    // var currentBalance = newBankAccount.this.balance; //** Cannot read property of balance - how do I get this.balance? What good is it as a property of the object if I can't get it?
-    // balance = currentBalance; //** this did not help when I used it to replace 'currentBalance' as the argument in the line below
-    console.log(newBankAccount.deposit(currentBalance, depositAmount)); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
+    // debugger;
+    var depositAmount = parseFloat($("#deposit").val());
+    // var currentBalance = parseInt($(".account-balance").val()); //** no good - can't get value from .account-balance
+    var currentBalance = newBankAccount.balance; //** Am finally getting newBankAccount.balance stored in var currentBalance
     console.log(currentBalance);
-    console.log(newBankAccount.balance);
+    // this.deposit = depositAmount; //** this is meaningless -- this.deposit is not a thing, does not refer back to BankAccount object
+    currentBalance = newBankAccount.deposit(currentBalance, depositAmount);
+
+    console.log(currentBalance);
+    $("input#deposit").val("");
+    $(".account-balance").text(currentBalance);
+
+    // console.log(newBankAccount.deposit(currentBalance, depositAmount)); //**newBankAccount.deposit is not a function. How am I supposed to use prototypes?
+    // console.log($(".account-balance").val()); // no good, can't get value from .account-balance
+    // console.log(parseInt($(".account-balance").val()));
+    // console.log(newBankAccount.balance);
+  });
+
+
+  $("#withdraw-funds").submit(function(event){
+    event.preventDefault();
+
+    var withdrawalAmount = parseFloat($("#withdrawal").val());
+    var currentBalance = newBankAccount.balance;
+    console.log(currentBalance);
+
+    currentBalance = newBankAccount.withdrawal(currentBalance, withdrawalAmount);
+
+    console.log(currentBalance);
+    $(".account-balance").text(currentBalance);
+    $("input#withdrawal").val("");
+
   });
 });
